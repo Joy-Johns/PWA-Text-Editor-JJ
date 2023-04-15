@@ -10,7 +10,8 @@ module.exports = () => {
     mode: 'development',
     entry: {
       main: './src/js/index.js',
-      install: './src/js/install.js'
+      install: './src/js/install.js',
+      database: './src/js/database.js'
     },
     output: {
       filename: '[name].bundle.js',
@@ -21,16 +22,22 @@ module.exports = () => {
         template: './index.html',
         title: 'Text Editor'
       }),
-      new InjectManifest(),
+      new InjectManifest({
+        swSrc:'./src-sw.js', 
+        swDest: 'src-sw.js',
+      }),
       new WebpackPwaManifest({
+        inject: true, //Added this
         name: 'PWA Text Editor JJ',
         short_name: 'MyTxtEditor',
         description: 'My awesome Text Editor!',
         background_color: '#ffffff',
+        start_url: "/",
+        publicPath: "/",
         icons: [
           {
             src: path.resolve('src/images/logo.png'),
-            sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
+            sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
             
           },
           
