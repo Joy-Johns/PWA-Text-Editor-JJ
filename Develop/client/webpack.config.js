@@ -2,7 +2,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
-
 // TODO: Add and configure workbox plugins for a service worker and manifest file.
 // TODO: Add CSS loaders and babel to webpack.
 
@@ -20,9 +19,23 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'Text'
+        title: 'Text Editor'
       }),
       new InjectManifest(),
+      new WebpackPwaManifest({
+        name: 'PWA Text Editor JJ',
+        short_name: 'MyTxtEditor',
+        description: 'My awesome Text Editor!',
+        background_color: '#ffffff',
+        icons: [
+          {
+            src: path.resolve('src/images/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
+            
+          },
+          
+        ]
+      }),
     ],
 
     // https://blog.jakoblind.no/css-modules-webpack/ & activity 26
