@@ -9,10 +9,12 @@ module.exports = () => {
   return {
     mode: 'development',
     entry: {
+      // Add everything from my src/js folder
       main: './src/js/index.js',
-      install: './src/js/install.js', 
       database: './src/js/database.js',
-      
+      editor: './src/js/editor.js',
+      header: './src/js/header.js',
+      install: './src/js/install.js'
     },
     output: {
       filename: '[name].bundle.js',
@@ -28,16 +30,20 @@ module.exports = () => {
         swDest: 'src-sw.js',
       }),
       new WebpackPwaManifest({
+        fingerprints: false,
         inject: true,
+        start_url: '/',
+        publicPath: "/",
         name: 'PWA Text Editor JJ',
         short_name: 'MyTxtEditor',
         description: 'My awesome Text Editor!',
         background_color: '#ffffff',
+        
         icons: [
           {
             src: path.resolve('src/images/logo.png'),
-            sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
-            
+            sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
+            destination: path.join('assets', 'icons'),
           },
           
         ]
